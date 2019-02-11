@@ -1,8 +1,5 @@
 
 
-
-
-```
 node('master') {
     
     stage('SCM Checkout'){    
@@ -10,21 +7,35 @@ node('master') {
     }
     
     stage('Compile-Package'){
-      //def mvnHome =  tool name: 'Maven', type: 'maven'  
-      //sh "${mvnHome}/bin/mvn clean package"
-      //tool name: 'Maven', type: 'maven'
       def mvn_version = 'Maven'
       withEnv( ["PATH+MAVEN=${tool mvn_version}/bin"] ) {
       sh "mvn clean package"
-      }
-      //sh "mvn clean package"
-      
+      }      
     }
     
     stage('Email Notification'){
       mail bcc: '', body: '''Hi Welcome to jenkins email alerts
       Thanks Hari''', cc: '', from: '', replyTo: '', subject: 'Jenkins Job', to: 'lotfi@yallalabs.local'
-}
+    }
     
 }
-```
+
+#############################################################################################################
+node('master') {
+    
+    stage('SCM Checkout'){    
+    git 'https://github.com/sivajavatechie/JenkinsWar'
+    }
+    
+    stage('Compile-Package'){
+      def mvnHome =  tool name: 'Maven', type: 'maven'
+      sh "${mvnHome}bin/mvn clean package"
+    }
+    
+    stage('Email Notification'){
+      mail bcc: '', body: '''Hi Welcome to jenkins email alerts
+      Thanks Hari''', cc: '', from: '', replyTo: '', subject: 'Jenkins Job', to: 'lotfi@yallalabs.local'
+    }
+    
+}
+
