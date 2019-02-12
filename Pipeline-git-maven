@@ -31,7 +31,9 @@ node('master') {
       def mvnHome =  tool name: 'Maven', type: 'maven'
       sh "${mvnHome}/bin/mvn clean package"
     }
-    
+    stage('Deploy Tomcat'){
+    curl --upload-file /target/*.war "http://admin:password@192.168.1.203:8080/manager/text/deploy?path=/app&update=true"
+    }
     stage('Email Notification'){
       mail bcc: '', body: '''Hi Welcome to jenkins email alerts
       Thanks Hari''', cc: '', from: '', replyTo: '', subject: 'Jenkins Job', to: 'lotfi@yallalabs.local'
