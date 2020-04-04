@@ -25,7 +25,7 @@ pipeline {
 			 transfers: [
 			  sshTransfer(
 			   sourceFiles: "target/myapp-${mavenPom.version}.war",
-			   #removePrefix: "${path_to_file}",
+			   removePrefix: "target/",
 			   remoteDirectory: "/",
 			   execCommand: "run commands after copy?"
 			  )
