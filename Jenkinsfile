@@ -14,23 +14,25 @@ pipeline {
             }
         }
 		stage('SSH transfer') {
-		 script {
-			 def mavenPom = readMavenPom file: 'pom.xml'
-		  sshPublisher(
-		   continueOnError: false, failOnError: true,
-		   publishers: [
-			sshPublisherDesc(
-			 configName: "localhost",
-			 verbose: true,
-			 transfers: [
-			  sshTransfer(
-			   sourceFiles: "target/myapp-${mavenPom.version}.war",
-			   removePrefix: "target/",
-			   remoteDirectory: "/",
-			   execCommand: "run commands after copy?"
-			  )
-			 ])
-		   ])
+		    steps{
+				 script {
+					 def mavenPom = readMavenPom file: 'pom.xml'
+				  sshPublisher(
+				   continueOnError: false, failOnError: true,
+				   publishers: [
+					sshPublisherDesc(
+					 configName: "localhost",
+					 verbose: true,
+					 transfers: [
+					  sshTransfer(
+					   sourceFiles: "target/myapp-${mavenPom.version}.war",
+					   removePrefix: "target/",
+					   remoteDirectory: "/",
+					   execCommand: "run commands after copy?"
+					  )
+					 ])
+				   ])
+				 }
 		 }
 		}
     }
