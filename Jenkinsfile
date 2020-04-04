@@ -28,7 +28,7 @@ pipeline {
 					   sourceFiles: "target/myapp-${mavenPom.version}.war",
 					   removePrefix: "target/",
 					   remoteDirectory: "/",
-					   execCommand: "run commands after copy?"
+					   execCommand: ""
 					  )
 					 ])
 				   ])
