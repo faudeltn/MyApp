@@ -17,6 +17,7 @@ pipeline {
 		    steps{
 				 script {
 					 def mavenPom = readMavenPom file: 'pom.xml'
+					 def RepoName = mavenPom.version.endsWith("SNAPSHOT") ? "myapp-snapshot" : "myapp-release"
 				  sshPublisher(
 				   continueOnError: false, failOnError: true,
 				   publishers: [
@@ -25,9 +26,9 @@ pipeline {
 					 verbose: true,
 					 transfers: [
 					  sshTransfer(
-					   sourceFiles: "target/*.war",
+					   sourceFiles: "target/myapp-${mavenPom.version}.war",
 					   removePrefix: "target/",
-					   remoteDirectory: "/mywordpress",
+					   remoteDirectory: "/mywordpress/${RepoName}",
 					   execCommand: ""
 					  )
 					 ])
