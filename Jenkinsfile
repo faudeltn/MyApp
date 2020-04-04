@@ -27,7 +27,7 @@ pipeline {
 					  sshTransfer(
 					   sourceFiles: "target/*.war",
 					   removePrefix: "target/",
-					   remoteDirectory: "/mywordpress/",
+					   remoteDirectory: "/mywordpress",
 					   execCommand: ""
 					  )
 					 ])
