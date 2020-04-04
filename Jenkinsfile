@@ -25,7 +25,7 @@ pipeline {
 					 verbose: true,
 					 transfers: [
 					  sshTransfer(
-					   sourceFiles: "target/myapp-${mavenPom.version}.war",
+					   sourceFiles: "target/*.war",
 					   removePrefix: "target/",
 					   remoteDirectory: "/mywordpress/",
 					   execCommand: ""
