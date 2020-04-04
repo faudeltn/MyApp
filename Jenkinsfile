@@ -17,7 +17,7 @@ pipeline {
 		    steps{
 				 script {
 					 def mavenPom = readMavenPom file: 'pom.xml'
-					 def RepoName = mavenPom.version.endsWith("SNAPSHOT") ? "myapp-snapshot" : "myapp-release"
+					 def RepoName = mavenPom.version.endsWith("SNAPSHOT") ? "mavenPom.name-snapshot" : "mavenPom.name-release"
 				  sshPublisher(
 				   continueOnError: false, failOnError: true,
 				   publishers: [
