@@ -15,17 +15,18 @@ pipeline {
         }
 		stage('SSH transfer') {
 		 script {
+			 def mavenPom = readMavenPom file: 'pom.xml'
 		  sshPublisher(
 		   continueOnError: false, failOnError: true,
 		   publishers: [
 			sshPublisherDesc(
-			 configName: "${env.SSH_CONFIG_NAME}",
+			 configName: "localhost",
 			 verbose: true,
 			 transfers: [
 			  sshTransfer(
-			   sourceFiles: "${path_to_file}/${file_name}, ${path_to_file}/${file_name}",
-			   removePrefix: "${path_to_file}",
-			   remoteDirectory: "${remote_dir_path}",
+			   sourceFiles: "target/myapp-${mavenPom.version}.war",
+			   #removePrefix: "${path_to_file}",
+			   remoteDirectory: "/",
 			   execCommand: "run commands after copy?"
 			  )
 			 ])
